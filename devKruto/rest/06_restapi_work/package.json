@@ -1,0 +1,21 @@
+{
+  "name": "06_restapi",
+  "version": "1.0.0",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "test": "node server.test.js",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "mongodb-memory-server": "^10.2.1"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "mongoose": "^8.18.2"
+  }
+}

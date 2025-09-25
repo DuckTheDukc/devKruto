@@ -1,0 +1,65 @@
+<DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>TO DO</div>
+    <input type="text" name="" id="input-id">
+    <div onclick="createTask()">добавить заадчу</div>
+    <div id="tasks">задачи</div>
+</body>
+
+<script>
+
+    const tasksListEl = document.getElementById("tasks");
+    const newTask = document.getElementById("input-id");
+    let tasks = []
+
+        fetch("/api/tasks")
+      .then((r) => r.json())
+      .then((data) => {
+        tasks = data;
+        updateList();
+      });
+    
+
+async function createTask() {
+
+ 
+   fetch("/api/tasks", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+            body: JSON.stringify({ taskTitle: newTask.value }),
+        })
+
+        .then((r) => r.json())
+        .then((data) => {
+          tasks = data;
+          updateList();
+        });
+
+    
+}
+function updateList() {
+      tasksListEl.replaceChildren();
+
+      tasks.forEach((task) => {
+        let taskEl = document.createElement("BUTTON");
+        taskEl.className = "task";
+        taskEl.innerText = task.title;
+        taskEl.onclick = () => {
+          deleteTask(task.id);
+        };
+        tasksListEl.appendChild(taskEl);
+      });
+    }
+
+    updateList();
+
+</script>
+</html>
